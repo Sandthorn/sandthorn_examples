@@ -1,4 +1,4 @@
-sandthorn_example
+sandthorn_examples
 =================
 
-To show how event sourcing with sandthorn differs from vanilla active record rails
+Collection of examples on how to integrate Sandthorn
