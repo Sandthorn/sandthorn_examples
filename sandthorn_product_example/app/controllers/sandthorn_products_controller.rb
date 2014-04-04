@@ -10,6 +10,8 @@ class SandthornProductsController < ApplicationController
 
   def create
     @product = SandthornProduct.new product_params
+    ap @product.aggregate_events
+    puts @product.inspect
     if @product.save
       redirect_to "/sandthorn/product/#{@product.id}"
     else
@@ -41,6 +43,8 @@ class SandthornProductsController < ApplicationController
   def destroy
     @product = SandthornProduct.find(params[:id])
     @product.destroy
+    ap @product.aggregate_events
+    puts @product.inspect
     @product.save
    
     redirect_to "/sandthorn/products/index"
