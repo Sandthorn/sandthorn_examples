@@ -42,6 +42,13 @@ class SandthornProduct
     end
   end
 
+  def restore
+    unless active
+      @active = true
+      restored
+    end
+  end
+
   private
 
   def name_updated
@@ -57,6 +64,10 @@ class SandthornProduct
   end
 
   def deleted
+    commit
+  end
+
+  def restored
     commit
   end
 end
