@@ -9,8 +9,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    #render text: params[:product].inspect
-    @product = Product.new post_params
+    @product = Product.new product_params
     if @product.save
       redirect_to @product
     else
@@ -44,7 +43,7 @@ class ProductsController < ApplicationController
   end
 
   private
-  def post_params
+  def product_params
     params.require(:product).permit(:name, :price, :stock_status)
   end
 

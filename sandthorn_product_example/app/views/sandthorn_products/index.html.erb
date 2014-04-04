@@ -1,0 +1,21 @@
+<h1>Listing products</h1>
+ <%= link_to 'New product', "/sandthorn/products/new" %>
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Stock status</th>
+  </tr>
+ 
+  <% @products.each do |product| %>
+    <tr>
+      <td><%= product.name %></td>
+      <td><%= product.price %></td>
+      <td><%= product.stock_status %></td>
+      <td><%= link_to 'Show', "/sandthorn/product/#{product.id}" %></td>
+      <td><%= link_to 'Edit', "/sandthorn/product/#{product.id}/edit" %></td>
+      <td><%= link_to 'Destroy', "/sandthorn/product/#{product.id}/destroy",
+                    method: :post, data: { confirm: 'Are you sure?' } %></td>
+    </tr>
+  <% end %>
+</table>

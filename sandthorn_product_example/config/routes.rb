@@ -1,6 +1,22 @@
 SandthornProductExample::Application.routes.draw do
-  resources :products
   root "welcome#index"
+
+  #actice record product routes
+  resources :products
+
+  #sandthorn product routes
+  match "/sandthorn/products/index" => "sandthorn_products#index", :via => "get"
+  match "/sandthorn/products/new" => "sandthorn_products#new", :via => "get"
+  match "/sandthorn/products/" => "sandthorn_products#new", :via => "get"
+  match "/sandthorn/product/:id" => "sandthorn_products#show", :via => "get"
+  match "/sandthorn/product/:id/update" => "sandthorn_products#update", :via => "post"
+  match "/sandthorn/product/:id/edit" => "sandthorn_products#edit", :via => "get"
+  match "/sandthorn/products" => "sandthorn_products#create", :via => "post"
+  match "/sandthorn/products/create" => "sandthorn_products#create", :via => "post"
+  match "/sandthorn/product/:id/destroy" => "sandthorn_products#destroy", :via => "post"
+
+
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

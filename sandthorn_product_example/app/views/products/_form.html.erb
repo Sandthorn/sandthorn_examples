@@ -1,4 +1,4 @@
-<%= form_for :product, url: products_path do |f| %>
+<%= form_for @product do |f| %>
   
   <% if @product.errors.any? %>
   <div id="error_explanation">
@@ -24,7 +24,12 @@
  
   <p>
     <%= f.label :stock_status %><br>
-    <%= f.text_field :stock_status %>
+    <%= f.radio_button(:stock_status, "instock", :checked => @product.stock_status == "instock") %>
+    <%= f.label(:stock_status_instock, "In stock") %>
+    <%= f.radio_button(:stock_status, "outofstock", :checked => @product.stock_status == "outofstock") %>
+    <%= f.label(:stock_status_outofstock, "Out of stock") %>
+    <%= f.radio_button(:stock_status, "discontinued", :checked => @product.stock_status == "discontinued") %>
+    <%= f.label(:stock_status_discontinued, "Discontinued") %>
   </p>
 
   <p>

@@ -1,0 +1,16 @@
+<p>
+  <strong>Name:</strong>
+  <%= @product.name %>
+</p>
+ 
+<p>
+  <strong>Price:</strong>
+  <%= @product.price %>
+</p>
+
+<p>
+  <strong>Stock status:</strong>
+  <%= @product.stock_status %>
+</p>
+<%= link_to 'Back', "/sandthorn/products/index" %>
+| <%= link_to 'Edit', "/sandthorn/product/#{@product.id}/edit" %>

@@ -1,0 +1,34 @@
+<h1>New Sandthorn Product</h1>
+
+<form accept-charset="UTF-8" action="/sandthorn/products" class="new_product" id="new_product" method="post">
+  <div style="margin:0;padding:0;display:inline">
+    <input name="utf8" type="hidden" value="✓">
+    
+    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+  </div>
+  
+
+  <p>
+    <label for="sandthorn_product_name">Name</label><br>
+    <input id="sandthorn_product_name" name="sandthorn_product[name]" type="text">
+  </p>
+ 
+  <p>
+    <label for="sandthorn_product_price">Price</label><br>
+    <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text">
+  </p>
+ 
+  <p>
+    <label for="sandthorn_product_stock_status">Stock status</label><br>
+    <input id="sandthorn_product_stock_status_instock" name="sandthorn_product[stock_status]" type="radio" value="instock">
+    <label for="sandthorn_product_stock_status_instock">In stock</label>
+    <input id="sandthorn_product_stock_status_outofstock" name="sandthorn_product[stock_status]" type="radio" value="outofstock">
+    <label for="sandthorn_product_stock_status_outofstock">Out of stock</label>
+    <input id="sandthorn_product_stock_status_discontinued" name="sandthorn_product[stock_status]" type="radio" value="discontinued">
+    <label for="sandthorn_product_stock_status_discontinued">Discontinued</label>
+  </p>
+
+  <p>
+    <input name="commit" type="submit" value="Create">
+  </p>
+</form>
