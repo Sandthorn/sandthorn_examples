@@ -1,5 +1,7 @@
 class ProductsController < ApplicationController
 
+  before_action :log
+
   def new
     @product = Product.new
   end
@@ -45,6 +47,15 @@ class ProductsController < ApplicationController
   private
   def product_params
     params.require(:product).permit(:name, :price, :stock_status)
+  end
+
+  def log
+    @log = []
+    SQLite3::Database.new( "db/development.sqlite3" ) do |db|
+      db.execute( "select * from products" ) do |row|
+        @log << row 
+      end
+    end
   end
 
 end
