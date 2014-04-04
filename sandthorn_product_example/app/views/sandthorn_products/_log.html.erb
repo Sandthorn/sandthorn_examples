@@ -1,0 +1,12 @@
+<br />
+Event Sourced database table (events, aggreagtes)<br />
+
+<% @aggregate_log.each do |row| %>
+  <span><%= row %></span>
+  <br />
+<% end %>
+
+<% @event_log.each do |row| %>
+  <span><%= row %></span>
+  <br />
+<% end %>

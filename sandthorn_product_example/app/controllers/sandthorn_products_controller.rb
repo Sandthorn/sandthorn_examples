@@ -1,5 +1,7 @@
 class SandthornProductsController < ApplicationController
 
+  before_action :log
+
   def new
     #@product = SandthornProduct.new
   end
@@ -55,4 +57,18 @@ class SandthornProductsController < ApplicationController
     params.require(:sandthorn_product).permit(:name, :price, :stock_status)
   end
 
+  def log
+    @event_log = []
+    @aggregate_log = []
+    
+    SQLite3::Database.new( "db/development.sqlite3" ) do |db|
+      db.execute( "select * from events" ) do |row|
+        @event_log << row 
+      end
+
+      db.execute( "select * from aggregates" ) do |row|
+        @aggregate_log << row 
+      end
+    end
+  end
 end
