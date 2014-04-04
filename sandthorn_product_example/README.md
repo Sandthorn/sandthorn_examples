@@ -4,8 +4,8 @@ Vanilla rails is setup according to the getting started guide (blog) http://guid
 
 Sandthorn CRUD alike example
 
-```ruby
-
+```
 $ bundle install
 $ rake db:migrate
 $ rails s
+```
