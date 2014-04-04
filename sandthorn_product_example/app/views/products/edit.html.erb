@@ -1,8 +1,12 @@
-<h1>Editing product</h1>
- 
-<%= render 'form' %>
+<div class="row editing">
+    <div class="col-sm-12">
+        <h2>Editing Active Record Product</h2>
 
- 
-<%= link_to 'Back', product_path %>
+        <%= render 'form' %>
 
-<%= render 'log' %>
+        <p>
+        <%= link_to '<span class="glyphicon glyphicon-chevron-left"></span> Back'.html_safe, products_path, class: "btn btn-sm btn-primary"  %>
+        </p>
+        <%= render 'log' %>
+    </div>
+</div>

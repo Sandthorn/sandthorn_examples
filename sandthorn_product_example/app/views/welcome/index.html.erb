@@ -1,3 +1,12 @@
-<h1>Welcome to vanilla Rails with Active Record</h1>
-<%= link_to "AR Products", controller: "products" %>
-<%= link_to "Sandthorn Products", controller: "sandthorn_products" %>
+<div class="jumbotron">
+    <h1>Vanilla Rails with Active Record</h1>
+    <p class="lead">This is for testing and comparing Active Record against Event Sourcing.</p>
+    <div class="row">
+        <div class="col-sm-6">
+            <p><%= link_to "Active Record Products", {controller: "products"}, class: "btn btn-lg btn-info" %></p>
+        </div>
+        <div class="col-sm-6">
+            <p><%= link_to "Sandthorn Products", {controller: "sandthorn_products"}, class: "btn btn-lg btn-success" %></p>
+        </div>
+    </div>
+</div>

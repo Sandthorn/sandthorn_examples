@@ -1,7 +1,13 @@
-<h1>New Product</h1>
+<div class="row editing">
+    <div class="col-sm-12">
+        <h2>New Active Record Product</h2>
 
-<%= render 'form' %>
+        <%= render 'form' %>
 
-<%= link_to 'Back', products_path %>
+        <p>
+        <%= link_to '<span class="glyphicon glyphicon-chevron-left"></span> Back'.html_safe, products_path, class: "btn btn-sm btn-primary"  %>
+        </p>
 
-<%= render 'log' %>
+        <%= render 'log' %>
+    </div>
+</div>

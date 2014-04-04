@@ -1,14 +1,12 @@
-<br />
-Event Sourced database<br /><br />
 
-Aggregate table<br />
+<h4>Event Sourced database</h4>
+
+<h5>Aggregate table</h5>
 <% @aggregate_log.each do |row| %>
-  <span><%= row %></span>
-  <br />
+  <p class="bg-info"><%= row %></p>
 <% end %>
-<br/>
-Events table<br />
+<br>
+<h5>Events table</h5>
 <% @event_log.each do |row| %>
-  <span><%= row %></span>
-  <br />
+  <p class="bg-success"><%= row %></p>
 <% end %>
