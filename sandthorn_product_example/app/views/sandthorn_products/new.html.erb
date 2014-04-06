@@ -1,34 +1,47 @@
-<h1>New Sandthorn Product</h1>
+<div class="row editing">
+    <div class="col-sm-12">
+        <h2>New Sandthorn Product</h2>
+        <form accept-charset="UTF-8" action="/sandthorn/products" class="new_product" id="new_product" method="post">
+          <div style="margin:0;padding:0;display:inline">
+            <input name="utf8" type="hidden" value="✓">
 
-<form accept-charset="UTF-8" action="/sandthorn/products" class="new_product" id="new_product" method="post">
-  <div style="margin:0;padding:0;display:inline">
-    <input name="utf8" type="hidden" value="✓">
-    
-    <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
-  </div>
-  
+            <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          </div>
 
-  <p>
-    <label for="sandthorn_product_name">Name</label><br>
-    <input id="sandthorn_product_name" name="sandthorn_product[name]" type="text">
-  </p>
- 
-  <p>
-    <label for="sandthorn_product_price">Price</label><br>
-    <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text">
-  </p>
- 
-  <p>
-    <label for="sandthorn_product_stock_status">Stock status</label><br>
-    <input id="sandthorn_product_stock_status_instock" name="sandthorn_product[stock_status]" type="radio" value="instock">
-    <label for="sandthorn_product_stock_status_instock">In stock</label>
-    <input id="sandthorn_product_stock_status_outofstock" name="sandthorn_product[stock_status]" type="radio" value="outofstock">
-    <label for="sandthorn_product_stock_status_outofstock">Out of stock</label>
-    <input id="sandthorn_product_stock_status_discontinued" name="sandthorn_product[stock_status]" type="radio" value="discontinued">
-    <label for="sandthorn_product_stock_status_discontinued">Discontinued</label>
-  </p>
+          <div class="jumbotron clearfix">
+                <div class="form-group clearfix">
+                    <label for="sandthorn_product_name" class="col-sm-2 ">Name</label>
+                    <div class="col-sm-10">
+                        <input id="sandthorn_product_name" name="sandthorn_product[name]" type="text" class="form-control" placeholder="Name">
+                    </div>
+                </div>
+                <div class="form-group clearfix">
+                    <label for="sandthorn_product_price" class="col-sm-2 ">Price</label>
+                    <div class="col-sm-10">
+                        <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text" class="form-control" placeholder="Price">
+                    </div>
+                </div>
+                <div class="col-sm-7">
+                    <h4>Stock status</h4>
+                    <div class="btn-group btn-group-sm" data-toggle="buttons">
+                        <label class="btn btn-success">
+                            <input type="radio" name="sandthorn_product[stock_status]" id="sandthorn_product_stock_status_instock" value="instock"> In stock
+                        </label>
+                        <label class="btn btn-warning">
+                            <input type="radio" name="sandthorn_product[stock_status]" id="sandthorn_product_stock_status_outofstock" value="outofstock"> Out of stock
+                        </label>
+                        <label class="btn btn-danger">
+                            <input type="radio" name="sandthorn_product[stock_status]" id="sandthorn_product_stock_status_discontinued" value="discontinued"> Discontinued
+                        </label>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <p>&nbsp;</p>
+                    <input name="commit" type="submit" value="Create Product" class="btn btn-lg btn-block btn-success">
+                </div>
+            </div>
 
-  <p>
-    <input name="commit" type="submit" value="Create">
-  </p>
-</form>
+
+        </form>
+    </div>
+</div>

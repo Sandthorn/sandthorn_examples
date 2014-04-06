@@ -1,36 +1,50 @@
-<h1>Editing Sandthorn product</h1>
- 
+<div class="row editing">
+    <div class="col-sm-12">
+        <h2>Editing Sandthorn product</h2>
 
+        <form accept-charset="UTF-8" action="/sandthorn/product/<%= @product.id %>/update" method="post">
+          <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
 
-<form accept-charset="UTF-8" action="/sandthorn/product/<%= @product.id %>/update" method="post">
-  <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓">
-  
-  <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
-  <p>
-    <label for="sandthorn_product_name">Name</label><br>
-    <input id="sandthorn_product_name" name="sandthorn_product[name]" type="text" value="<%= @product.name %>">
-  </p>
- 
-  <p>
-    <label for="sandthorn_product_price">Price</label><br>
-    <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text" value="<%= @product.price %>">
-  </p>
- 
-  <p>
-    <label for="sandthorn_product_stock_status">Stock status</label><br>
-    <input <%= 'checked' if @product.stock_status == 'instock' %> id="sandthorn_product_stock_status_instock" name="sandthorn_product[stock_status]" type="radio" value="instock">
-    <label for="sandthorn_product_stock_status_instock">In stock</label>
-    <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" name="sandthorn_product[stock_status]" type="radio" value="outofstock">
-    <label for="sandthorn_product_stock_status_outofstock">Out of stock</label>
-    <input <%= 'checked' if @product.stock_status == 'discontinued' %> id="sandthorn_product_stock_status_discontinued" name="sandthorn_product[stock_status]" type="radio" value="discontinued">
-    <label for="sandthorn_product_stock_status_discontinued">Discontinued</label>
-  </p>
+        <div class="jumbotron clearfix">
+            <div class="form-group clearfix">
+                <label for="sandthorn_product_name" class="col-sm-2 ">Name</label>
+                <div class="col-sm-10">
+                    <input id="sandthorn_product_name" name="sandthorn_product[name]" type="text" class="form-control" placeholder="Name" value="<%= @product.name %>">
+                </div>
+            </div>
+            <div class="form-group clearfix">
+                <label for="sandthorn_product_price" class="col-sm-2 ">Price</label>
+                <div class="col-sm-10">
+                    <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text" class="form-control" placeholder="Price" value="<%= @product.price %>">
+                </div>
+            </div>
 
-  <p>
-    <input name="commit" type="submit" value="Update">
-  </p>
-</form>
+            <div class="col-sm-7">
+                <h4>Stock status</h4>
+                <div class="btn-group btn-group-sm" data-toggle="buttons">
+                    <label class="btn btn-success <%= 'active' if @product.stock_status == 'instock' %>">
+                    <span class="<%= 'glyphicon glyphicon-ok-circle' if @product.stock_status == 'instock' %>"></span>
+                        <input <%= 'checked' if @product.stock_status == 'instock' %> id="sandthorn_product_stock_status_instock" name="sandthorn_product[stock_status]" type="radio" value="instock"> In stock
+                    </label>
+                    <label class="btn btn-warning <%= 'active' if @product.stock_status == 'outofstock' %>">
+                    <span class="<%= 'glyphicon glyphicon-ban-circle' if @product.stock_status == 'outofstock' %>"></span>
+                        <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" name="sandthorn_product[stock_status]" type="radio" value="outofstock"> Out of stock
+                    </label>
+                    <label class="btn btn-danger <%= 'active' if @product.stock_status == 'discontinued' %>">
+                    <span class="<%= 'glyphicon glyphicon-remove-circle' if @product.stock_status == 'discontinued' %>"></span>
+                        <input <%= 'checked' if @product.stock_status == 'discontinued' %> id="sandthorn_product_stock_status_discontinued" name="sandthorn_product[stock_status]" type="radio" value="discontinued"> Discontinued
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-5">
+                <p>&nbsp;</p>
+                <input name="commit" type="submit" value="Update Product" class="btn btn-lg btn-block btn-success">
+            </div>
+        </div>
+         </form>
 
- 
-<%= link_to 'Back', "/sandthorn/product/#{@product.id}" %>
+        <%= link_to '<span class="glyphicon glyphicon-chevron-left"></span> Back'.html_safe, "/sandthorn/product/#{@product.id}", class: "btn btn-sm btn-primary"  %>
+    </div>
+</div>

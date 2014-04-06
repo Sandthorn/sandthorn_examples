@@ -48,7 +48,7 @@ class SandthornProductsController < ApplicationController
     ap @product.aggregate_events
     puts @product.inspect
     @product.save
-   
+
     redirect_to "/sandthorn/products/index"
   end
 
@@ -60,14 +60,14 @@ class SandthornProductsController < ApplicationController
   def log
     @event_log = []
     @aggregate_log = []
-    
+
     SQLite3::Database.new( "db/development.sqlite3" ) do |db|
       db.execute( "select * from events" ) do |row|
-        @event_log << row 
+        @event_log << row
       end
 
       db.execute( "select * from aggregates" ) do |row|
-        @aggregate_log << row 
+        @aggregate_log << row
       end
     end
   end

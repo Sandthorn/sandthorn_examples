@@ -1,18 +1,25 @@
-<p>
-  <strong>Name:</strong>
-  <%= @product.name %>
-</p>
- 
-<p>
-  <strong>Price:</strong>
-  <%= @product.price %>
-</p>
+<div class="row editing">
+    <div class="col-sm-12">
+        <h2>Showing Product</h2>
+        <div class="jumbotron">
+            <p class="lead">
+              <strong>Name:</strong>
+              <%= @product.name %>
+|
+              <strong>Price:</strong>
+              <%= @product.price %>
+|
+              <strong>Stock status:</strong>
+              <%= @product.stock_status %>
+            </p>
+        </div>
 
-<p>
-  <strong>Stock status:</strong>
-  <%= @product.stock_status %>
-</p>
-<%= link_to 'Back', products_path %>
-| <%= link_to 'Edit', edit_product_path(@product) %>
 
-<%= render 'log' %>
+        <p>
+            <%= link_to '<span class="glyphicon glyphicon-chevron-left"></span> Back'.html_safe, products_path, class: "btn btn-sm btn-primary"  %>
+            | <%= link_to '<span class="glyphicon glyphicon-edit"></span> Edit'.html_safe, edit_product_path(@product) , class: "btn btn-sm btn-success"  %>
+            </p>
+
+        <%= render 'log' %>
+    </div>
+</div>

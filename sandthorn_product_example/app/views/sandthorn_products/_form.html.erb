@@ -1,18 +1,18 @@
 <form accept-charset="UTF-8" action="/sandthorn/product/<%= @product.id %>/update" method="post">
-  <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓">
-  
+  <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
+
   <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
   <p>
     <label for="sandthorn_product_name">Name</label><br>
     <input id="sandthorn_product_name" name="sandthorn_product[name]" type="text" value="<%= @product.name %>">
   </p>
- 
+
   <p>
     <label for="sandthorn_product_price">Price</label><br>
     <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text" value="<%= @product.price %>">
   </p>
- 
+
   <p>
     <label for="sandthorn_product_stock_status">Stock status</label><br>
     <input <%= 'checked' if @product.stock_status == 'instock' %> id="sandthorn_product_stock_status_instock" name="sandthorn_product[stock_status]" type="radio" value="instock">
