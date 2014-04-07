@@ -21,6 +21,7 @@ SandthornProductExample::Application.routes.draw do
   match "/sandthorn/product/:id/out_of_stock" => "sandthorn_products_tasked_based#out_of_stock", :via => "post"
   match "/sandthorn/product/:id/discontinue" => "sandthorn_products_tasked_based#discontinue", :via => "post"
 
+  match "/sandthorn/log" => "sandthorn_products_tasked_based#get_log", :via => "get"
 
 
   # The priority is based upon order of creation: first created -> highest priority.

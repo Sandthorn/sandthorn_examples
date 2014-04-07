@@ -51,6 +51,10 @@
     </div>
 </div>
 
+<div id="log_events">
+ <%= render 'log' %>
+</div>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $("#tasked_based").click(function() {
@@ -71,6 +75,9 @@
       {
         params = { name: $("#sandthorn_product_name").val() };
         $.post("/sandthorn/product/<%= @product.id %>/change_name", params, function(response) {
+            $.get("/sandthorn/log", {}, function(response){
+                $("#log_events").html(response)
+            });
         });
       }
     });
@@ -80,6 +87,9 @@
       {
         params = { price: $("#sandthorn_product_price").val() };
         $.post("/sandthorn/product/<%= @product.id %>/change_price", params, function(response) {
+            $.get("/sandthorn/log", {}, function(response){
+                $("#log_events").html(response)
+            });
         });
       }
     });
@@ -91,6 +101,9 @@
             $(".glyphicon").hide();
             $("#sandthorn_product_stock_status_instock_icon").addClass( "glyphicon glyphicon-ok-circle" );
             $("#sandthorn_product_stock_status_instock_icon").show();
+            $.get("/sandthorn/log", {}, function(response){
+                $("#log_events").html(response)
+            });
         });
       }
     });
@@ -102,6 +115,9 @@
             $(".glyphicon").hide();
             $("#sandthorn_product_stock_status_outofstock_icon").addClass( "glyphicon glyphicon-ban-circle" );
             $("#sandthorn_product_stock_status_outofstock_icon").show();
+            $.get("/sandthorn/log", {}, function(response){
+                $("#log_events").html(response)
+            });
         });
       }
     });
@@ -113,6 +129,9 @@
             $(".glyphicon").hide();
             $("#sandthorn_product_stock_status_outofstock_icon").addClass( "glyphicon glyphicon-remove-circle" );
             $("#sandthorn_product_stock_status_discontinued_icon").show();
+            $.get("/sandthorn/log", {}, function(response){
+                $("#log_events").html(response)
+            });
         });
       }
     });

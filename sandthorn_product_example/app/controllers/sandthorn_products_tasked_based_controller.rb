@@ -1,32 +1,33 @@
 class SandthornProductsTaskedBasedController < ApplicationController
 
   before_action :log
+  layout "false"
 
-  def new
-    #@product = SandthornProduct.new
-  end
+  # def new
+  #   #@product = SandthornProduct.new
+  # end
 
-  def index
-    @products = SandthornProduct.all.select { |product| product.active == true }
-  end
+  # def index
+  #   @products = SandthornProduct.all.select { |product| product.active == true }
+  # end
 
-  def create
-    @product = SandthornProduct.new product_params
-    ap @product.aggregate_events
-    if @product.save
-      redirect_to "/sandthorn/product/#{@product.id}"
-    else
-      render 'new'
-    end
-  end
+  # def create
+  #   @product = SandthornProduct.new product_params
+  #   ap @product.aggregate_events
+  #   if @product.save
+  #     redirect_to "/sandthorn/product/#{@product.id}"
+  #   else
+  #     render 'new'
+  #   end
+  # end
 
-  def show
-    @product = SandthornProduct.find(params[:id])
-  end
+  # def show
+  #   @product = SandthornProduct.find(params[:id])
+  # end
 
-  def edit
-    @product = SandthornProduct.find params[:id]
-  end
+  # def edit
+  #   @product = SandthornProduct.find params[:id]
+  # end
 
   def change_name
     @product = SandthornProduct.find(params[:id])
@@ -87,6 +88,14 @@ class SandthornProductsTaskedBasedController < ApplicationController
     redirect_to "/sandthorn/products/index"
   end
 
+  def get_log
+    log_data = log
+    test = render_to_string 'sandthorn_products/_log', layout: false
+    respond_to do |format|
+      format.html {render :text => test,  status: 200 }
+    end
+  end
+
   private
   def product_params
     params.require(:sandthorn_product).permit(:name, :price, :stock_status)
@@ -105,5 +114,7 @@ class SandthornProductsTaskedBasedController < ApplicationController
         @aggregate_log << row
       end
     end
+
+    {event_log: @event_log, aggregate_log: @aggregate_log}
   end
 end
