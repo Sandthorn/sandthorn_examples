@@ -15,6 +15,12 @@ SandthornProductExample::Application.routes.draw do
   match "/sandthorn/products/create" => "sandthorn_products#create", :via => "post"
   match "/sandthorn/product/:id/destroy" => "sandthorn_products#destroy", :via => "post"
 
+  match "/sandthorn/product/:id/change_name" => "sandthorn_products_tasked_based#change_name", :via => "post"
+  match "/sandthorn/product/:id/change_price" => "sandthorn_products_tasked_based#change_price", :via => "post"
+  match "/sandthorn/product/:id/in_stock" => "sandthorn_products_tasked_based#in_stock", :via => "post"
+  match "/sandthorn/product/:id/out_of_stock" => "sandthorn_products_tasked_based#out_of_stock", :via => "post"
+  match "/sandthorn/product/:id/discontinue" => "sandthorn_products_tasked_based#discontinue", :via => "post"
+
 
 
   # The priority is based upon order of creation: first created -> highest priority.
