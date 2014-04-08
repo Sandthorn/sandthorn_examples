@@ -126,6 +126,7 @@ DEPENDENCIES
   coffee-rails (~> 4.0.0)
   jbuilder (~> 1.2)
   jquery-rails
+  pg
   rails (= 4.0.4)
   sandthorn
   sandthorn_driver_sequel
