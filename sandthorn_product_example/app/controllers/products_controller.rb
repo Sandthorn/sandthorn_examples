@@ -50,12 +50,8 @@ class ProductsController < ApplicationController
   end
 
   def log
-    @log = []
-    SQLite3::Database.new( "db/development.sqlite3" ) do |db|
-      db.execute( "select * from products" ) do |row|
-        @log << row 
-      end
-    end
+    sql = "select * from products"
+    @log = ActiveRecord::Base.connection.execute(sql)
   end
 
 end

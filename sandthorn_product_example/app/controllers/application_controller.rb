@@ -4,19 +4,12 @@ class ApplicationController < ActionController::Base
   protect_from_forgery with: :exception
 
   def event_store_log
-    event_log = []
-    aggregate_log = []
-
-    SQLite3::Database.new( "db/development.sqlite3" ) do |db|
-      db.execute( "select * from events order by sequence_number DESC" ) do |row|
-        event_log << row
-      end
-
-      db.execute( "select * from aggregates" ) do |row|
-        aggregate_log << row
-      end
-    end
-
+    
+    sql_events = "select * from events order by sequence_number DESC"
+    sql_aggrgates = "select * from aggregates"
+    event_log = ActiveRecord::Base.connection.execute(sql_events)
+    aggregate_log = ActiveRecord::Base.connection.execute(sql_aggrgates)
+    
     {event_log: event_log, aggregate_log: aggregate_log}
   end
 
