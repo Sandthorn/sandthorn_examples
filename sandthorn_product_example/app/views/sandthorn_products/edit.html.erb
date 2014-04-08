@@ -1,8 +1,6 @@
 <div class="row editing">
     <div class="col-sm-12">
         <h2>Editing Sandthorn product</h2>
-        <label>Tasked Based</label>
-        <input id="tasked_based" type="checkbox">
 
         <form accept-charset="UTF-8" action="/sandthorn/product/<%= @product.id %>/update" method="post">
           <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
@@ -41,8 +39,10 @@
                 </div>
             </div>
             <div class="col-sm-5">
-                <p>&nbsp;</p>
+                <label>Tasked Based
+                <input id="tasked_based" type="checkbox"></label>
                 <input id="update_button" name="commit" type="submit" value="Update Product" class="btn btn-lg btn-block btn-success">
+                
             </div>
         </div>
          </form>
@@ -56,7 +56,15 @@
 </div>
 
 <script type="text/javascript">
+
+    function update_log(){
+        $.get("/sandthorn/log", {}, function(response){
+            $("#log_events").html(response)
+        });
+    }
+
     $(document).ready(function(){
+
         $("#tasked_based").click(function() {
           if ($("#tasked_based").is(':checked'))
           {
@@ -68,71 +76,62 @@
           }
 
         });
-    });
+    
 
-    $( "#sandthorn_product_name" ).change(function() {
-      if ($("#tasked_based").is(':checked'))
-      {
-        params = { name: $("#sandthorn_product_name").val() };
-        $.post("/sandthorn/product/<%= @product.id %>/change_name", params, function(response) {
-            $.get("/sandthorn/log", {}, function(response){
-                $("#log_events").html(response)
+        $( "#sandthorn_product_name" ).change(function() {
+          if ($("#tasked_based").is(':checked'))
+          {
+            params = { name: $("#sandthorn_product_name").val() };
+            $.post("/sandthorn/product/<%= @product.id %>/change_name", params, function(response) {
+                update_log();
             });
+          }
         });
-      }
-    });
 
-    $( "#sandthorn_product_price" ).change(function() {
-      if ($("#tasked_based").is(':checked'))
-      {
-        params = { price: $("#sandthorn_product_price").val() };
-        $.post("/sandthorn/product/<%= @product.id %>/change_price", params, function(response) {
-            $.get("/sandthorn/log", {}, function(response){
-                $("#log_events").html(response)
+        $( "#sandthorn_product_price" ).change(function() {
+          if ($("#tasked_based").is(':checked'))
+          {
+            params = { price: $("#sandthorn_product_price").val() };
+            $.post("/sandthorn/product/<%= @product.id %>/change_price", params, function(response) {
+                update_log();
             });
+          }
         });
-      }
-    });
 
-    $( "#sandthorn_product_stock_status_instock" ).change(function() {
-      if ($("#tasked_based").is(':checked'))
-      {
-        $.post("/sandthorn/product/<%= @product.id %>/in_stock", {}, function(response) {
-            $(".glyphicon").hide();
-            $("#sandthorn_product_stock_status_instock_icon").addClass( "glyphicon glyphicon-ok-circle" );
-            $("#sandthorn_product_stock_status_instock_icon").show();
-            $.get("/sandthorn/log", {}, function(response){
-                $("#log_events").html(response)
+        $( "#sandthorn_product_stock_status_instock" ).change(function() {
+          if ($("#tasked_based").is(':checked'))
+          {
+            $.post("/sandthorn/product/<%= @product.id %>/in_stock", {}, function(response) {
+                $(".glyphicon").hide();
+                $("#sandthorn_product_stock_status_instock_icon").addClass( "glyphicon glyphicon-ok-circle" );
+                $("#sandthorn_product_stock_status_instock_icon").show();
+                update_log();
             });
+          }
         });
-      }
-    });
 
-    $( "#sandthorn_product_stock_status_outofstock" ).change(function() {
-      if ($("#tasked_based").is(':checked'))
-      {
-        $.post("/sandthorn/product/<%= @product.id %>/out_of_stock", {}, function(response) {
-            $(".glyphicon").hide();
-            $("#sandthorn_product_stock_status_outofstock_icon").addClass( "glyphicon glyphicon-ban-circle" );
-            $("#sandthorn_product_stock_status_outofstock_icon").show();
-            $.get("/sandthorn/log", {}, function(response){
-                $("#log_events").html(response)
+        $( "#sandthorn_product_stock_status_outofstock" ).change(function() {
+          if ($("#tasked_based").is(':checked'))
+          {
+            $.post("/sandthorn/product/<%= @product.id %>/out_of_stock", {}, function(response) {
+                $(".glyphicon").hide();
+                $("#sandthorn_product_stock_status_outofstock_icon").addClass( "glyphicon glyphicon-ban-circle" );
+                $("#sandthorn_product_stock_status_outofstock_icon").show();
+                update_log();
             });
+          }
         });
-      }
-    });
 
-    $( "#sandthorn_product_stock_status_discontinued" ).change(function() {
-      if ($("#tasked_based").is(':checked'))
-      {
-        $.post("/sandthorn/product/<%= @product.id %>/discontinue", {}, function(response) {
-            $(".glyphicon").hide();
-            $("#sandthorn_product_stock_status_outofstock_icon").addClass( "glyphicon glyphicon-remove-circle" );
-            $("#sandthorn_product_stock_status_discontinued_icon").show();
-            $.get("/sandthorn/log", {}, function(response){
-                $("#log_events").html(response)
+        $( "#sandthorn_product_stock_status_discontinued" ).change(function() {
+          if ($("#tasked_based").is(':checked'))
+          {
+            $.post("/sandthorn/product/<%= @product.id %>/discontinue", {}, function(response) {
+                $(".glyphicon").hide();
+                $("#sandthorn_product_stock_status_discontinued_icon").addClass( "glyphicon glyphicon-remove-circle" );
+                $("#sandthorn_product_stock_status_discontinued_icon").show();
+                update_log();
             });
+          }
         });
-      }
     });
 </script>

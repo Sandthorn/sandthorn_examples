@@ -89,7 +89,7 @@ class SandthornProductsTaskedBasedController < ApplicationController
   end
 
   def get_log
-    log_data = log
+    log_data = event_store_log
     test = render_to_string 'sandthorn_products/_log', layout: false
     respond_to do |format|
       format.html {render :text => test,  status: 200 }
@@ -100,21 +100,27 @@ class SandthornProductsTaskedBasedController < ApplicationController
   def product_params
     params.require(:sandthorn_product).permit(:name, :price, :stock_status)
   end
-
+  
   def log
-    @event_log = []
-    @aggregate_log = []
-
-    SQLite3::Database.new( "db/development.sqlite3" ) do |db|
-      db.execute( "select * from events" ) do |row|
-        @event_log << row
-      end
-
-      db.execute( "select * from aggregates" ) do |row|
-        @aggregate_log << row
-      end
-    end
-
-    {event_log: @event_log, aggregate_log: @aggregate_log}
+    log = event_store_log
+    @event_log = log[:event_log]
+    @aggregate_log = log[:aggregate_log]
   end
+
+  # def log
+  #   @event_log = []
+  #   @aggregate_log = []
+
+  #   SQLite3::Database.new( "db/development.sqlite3" ) do |db|
+  #     db.execute( "select * from events order by sequence_number DESC" ) do |row|
+  #       @event_log << row
+  #     end
+
+  #     db.execute( "select * from aggregates" ) do |row|
+  #       @aggregate_log << row
+  #     end
+  #   end
+
+  #   {event_log: @event_log, aggregate_log: @aggregate_log}
+  # end
 end
