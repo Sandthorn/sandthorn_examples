@@ -20,6 +20,8 @@ SandthornProductExample::Application.routes.draw do
   match "/sandthorn/product/:id/in_stock" => "sandthorn_products_tasked_based#in_stock", :via => "post"
   match "/sandthorn/product/:id/out_of_stock" => "sandthorn_products_tasked_based#out_of_stock", :via => "post"
   match "/sandthorn/product/:id/discontinue" => "sandthorn_products_tasked_based#discontinue", :via => "post"
+  match "/sandthorn/product/:id/put_on_sale" => "sandthorn_products_tasked_based#put_on_sale", :via => "post"
+  match "/sandthorn/product/:id/remove_from_sale" => "sandthorn_products_tasked_based#remove_from_sale", :via => "post"
 
   match "/sandthorn/log" => "sandthorn_products_tasked_based#get_log", :via => "get"
 

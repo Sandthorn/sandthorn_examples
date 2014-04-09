@@ -1,7 +1,7 @@
 class SandthornProduct
   include Sandthorn::AggregateRoot
   
-  attr_reader :name, :price, :stock_status, :active
+  attr_reader :name, :price, :stock_status, :active, :on_sale
 
   INSTOCK = "instock"
   OUTOFSTOCK = "outofstock"
@@ -9,9 +9,10 @@ class SandthornProduct
 
   def initialize args = {}
     @name = args.fetch(:name, "")
-    @price = args.fetch(:price, 0)
+    @price = args.fetch(:price, 0).to_i
     @stock_status = args.fetch(:stock_status, INSTOCK)
     @active = true
+    @on_sale = false
   end
 
   def update_name new_name
@@ -21,7 +22,7 @@ class SandthornProduct
   end
 
   def update_price new_price
-    if price != new_price
+    if price != new_price.to_i
       price_updated new_price
     end
   end
@@ -63,7 +64,17 @@ class SandthornProduct
     end
   end
 
+  def put_on_sale
+    unless on_sale
+      product_on_sale
+    end
+  end
 
+  def remove_from_sale
+    if on_sale
+      removed_from_sale
+    end
+  end
 
   private
 
@@ -73,7 +84,7 @@ class SandthornProduct
   end
 
   def price_updated new_price
-    @price = new_price
+    @price = new_price.to_i
     commit
   end
 
@@ -106,4 +117,19 @@ class SandthornProduct
     @stock_status = DISCONTINUED
     commit
   end
+
+  def product_on_sale
+    @on_sale = true
+    @price = (price*0.8).to_i
+    @name = "ON SALE!!!! #{name}"
+    commit
+  end
+
+  def removed_from_sale
+    @on_sale = false
+    @price = (price*1.25).to_i
+    @name.slice! "ON SALE!!!! "
+    commit
+  end
+
 end

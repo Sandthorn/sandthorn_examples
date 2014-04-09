@@ -1,48 +1,23 @@
 class SandthornProductsTaskedBasedController < ApplicationController
 
   before_action :log
+  skip_before_filter :verify_authenticity_token
   layout "false"
 
-  # def new
-  #   #@product = SandthornProduct.new
-  # end
-
-  # def index
-  #   @products = SandthornProduct.all.select { |product| product.active == true }
-  # end
-
-  # def create
-  #   @product = SandthornProduct.new product_params
-  #   ap @product.aggregate_events
-  #   if @product.save
-  #     redirect_to "/sandthorn/product/#{@product.id}"
-  #   else
-  #     render 'new'
-  #   end
-  # end
-
-  # def show
-  #   @product = SandthornProduct.find(params[:id])
-  # end
-
-  # def edit
-  #   @product = SandthornProduct.find params[:id]
-  # end
-
   def change_name
-    @product = SandthornProduct.find(params[:id])
+    product = SandthornProduct.find(params[:id])
     
-    @product.update_name params[:name]
-    @product.save
+    product.update_name params[:name]
+    product.save
     respond_to do |format|
       format.json {render :json => {}, status: 201 }
     end
   end
 
   def change_price
-    @product = SandthornProduct.find(params[:id])
-    @product.update_price params[:price]
-    @product.save
+    product = SandthornProduct.find(params[:id])
+    product.update_price params[:price]
+    product.save
 
     respond_to do |format|
       format.json {render :json => {}, status: 201 }
@@ -50,9 +25,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
   end
 
   def in_stock
-    @product = SandthornProduct.find(params[:id])
-    @product.in_stock
-    @product.save
+    product = SandthornProduct.find(params[:id])
+    product.in_stock
+    product.save
 
     respond_to do |format|
       format.json {render :json => {}, status: 201 }
@@ -60,9 +35,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
   end
 
   def out_of_stock
-    @product = SandthornProduct.find(params[:id])
-    @product.out_of_stock
-    @product.save
+    product = SandthornProduct.find(params[:id])
+    product.out_of_stock
+    product.save
 
     respond_to do |format|
       format.json {render :json => {}, status: 201 }
@@ -70,9 +45,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
   end
 
   def discontinue
-    @product = SandthornProduct.find(params[:id])
-    @product.discontinue
-    @product.save
+    product = SandthornProduct.find(params[:id])
+    product.discontinue
+    product.save
 
     respond_to do |format|
       format.json {render :json => {}, status: 201 }
@@ -80,12 +55,31 @@ class SandthornProductsTaskedBasedController < ApplicationController
   end
 
   def destroy
-    @product = SandthornProduct.find(params[:id])
-    @product.destroy
-    ap @product.aggregate_events
-    @product.save
+    product = SandthornProduct.find(params[:id])
+    product.destroy
+    product.save
 
     redirect_to "/sandthorn/products/index"
+  end
+
+  def put_on_sale
+    product = SandthornProduct.find(params[:id])
+    product.put_on_sale
+    product.save
+
+    respond_to do |format|
+      format.json {render :json => {price: product.price, name: product.name}, status: 200 }
+    end
+  end
+
+  def remove_from_sale
+    product = SandthornProduct.find(params[:id])
+    product.remove_from_sale
+    product.save
+
+    respond_to do |format|
+      format.json {render :json => {price: product.price, name: product.name}, status: 200 }
+    end
   end
 
   def get_log
@@ -100,27 +94,11 @@ class SandthornProductsTaskedBasedController < ApplicationController
   def product_params
     params.require(:sandthorn_product).permit(:name, :price, :stock_status)
   end
-  
+
   def log
     log = event_store_log
     @event_log = log[:event_log]
     @aggregate_log = log[:aggregate_log]
   end
 
-  # def log
-  #   @event_log = []
-  #   @aggregate_log = []
-
-  #   SQLite3::Database.new( "db/development.sqlite3" ) do |db|
-  #     db.execute( "select * from events order by sequence_number DESC" ) do |row|
-  #       @event_log << row
-  #     end
-
-  #     db.execute( "select * from aggregates" ) do |row|
-  #       @aggregate_log << row
-  #     end
-  #   end
-
-  #   {event_log: @event_log, aggregate_log: @aggregate_log}
-  # end
 end

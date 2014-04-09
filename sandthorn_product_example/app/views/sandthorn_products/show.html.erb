@@ -11,6 +11,11 @@
  |
               <strong>Stock status:</strong>
               <%= @product.stock_status %>
+
+              <% if @product.on_sale %>
+              |
+              <strong>On sale</strong>
+              <% end %>
             </p>
         </div>
 

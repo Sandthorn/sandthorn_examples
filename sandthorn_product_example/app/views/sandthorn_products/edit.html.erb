@@ -3,9 +3,7 @@
         <h2>Editing Sandthorn product</h2>
 
         <form accept-charset="UTF-8" action="/sandthorn/product/<%= @product.id %>/update" method="post">
-          <div style="margin:0;padding:0;display:inline"><input name="utf8" type="hidden" value="✓"></div>
 
-          <%= hidden_field_tag :authenticity_token, form_authenticity_token -%>
 
         <div class="jumbotron clearfix">
             <div class="form-group clearfix">
@@ -20,6 +18,17 @@
                     <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text" class="form-control" placeholder="Price" value="<%= @product.price %>">
                 </div>
             </div>
+            <div class="form-group clearfix">
+                <label class="col-sm-2 ">On sale</label>
+                <div class="col-sm-10">
+                     
+                     <input <%= 'checked' if @product.on_sale %> id="sandthorn_product_on_sale_true" name="sandthorn_product[on_sale]" type="radio" value="true">
+                     <label for="sandthorn_product_on_sale_true">Yes</label>
+                     
+                     <input <%= 'checked' if !@product.on_sale %> id="sandthorn_product_on_sale_false" name="sandthorn_product[on_sale]" type="radio" value="false">
+                     <label for="sandthorn_product_on_sale_false">No</label>
+                </div>
+            </div>
 
             <div class="col-sm-7">
                 <h4>Stock status</h4>
@@ -30,7 +39,7 @@
                     </label>
                     <label class="btn btn-warning <%= 'active' if @product.stock_status == 'outofstock' %>">
                     <span id="sandthorn_product_stock_status_outofstock_icon" class="<%= 'glyphicon glyphicon-ban-circle' if @product.stock_status == 'outofstock' %>"></span>
-                        <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="sandthorn_product[stock_status]" type="radio" value="outofstock"> Out of stock
+                        <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="iu[stock_status]" type="radio" value="outofstock"> Out of stock
                     </label>
                     <label class="btn btn-danger <%= 'active' if @product.stock_status == 'discontinued' %>">
                     <span id="sandthorn_product_stock_status_discontinued_icon" class="<%= 'glyphicon glyphicon-remove-circle' if @product.stock_status == 'discontinued' %>"></span>
@@ -39,7 +48,7 @@
                 </div>
             </div>
             <div class="col-sm-5">
-                <label>Tasked Based
+                <label>Ajax update
                 <input id="tasked_based" type="checkbox"></label>
                 <input id="update_button" name="commit" type="submit" value="Update Product" class="btn btn-lg btn-block btn-success">
                 
@@ -96,6 +105,28 @@
                 update_log();
             });
           }
+        });
+
+        $("#sandthorn_product_on_sale_true").change(function(){
+            if ($("#tasked_based").is(':checked'))
+            {
+                $.post("/sandthorn/product/<%= @product.id %>/put_on_sale", {}, function(response) {
+                    $("#sandthorn_product_name").val(response.name)
+                    $("#sandthorn_product_price").val(response.price)
+                    update_log();
+                });
+            }
+        });
+
+        $("#sandthorn_product_on_sale_false").change(function(){
+            if ($("#tasked_based").is(':checked'))
+            {
+                $.post("/sandthorn/product/<%= @product.id %>/remove_from_sale", {}, function(response) {
+                    $("#sandthorn_product_name").val(response.name)
+                    $("#sandthorn_product_price").val(response.price)
+                    update_log();
+                });
+            }
         });
 
         $( "#sandthorn_product_stock_status_instock" ).change(function() {

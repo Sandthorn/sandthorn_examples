@@ -7,6 +7,7 @@
           <tr>
             <th>Name</th>
             <th>Price</th>
+            <th>On Sale</th>
             <th colspan="4">Stock status</th>
           </tr>
           </thead>
@@ -15,6 +16,7 @@
             <tr>
               <td><%= product.name %></td>
               <td><%= product.price %></td>
+              <td><%= product.on_sale %></td>
               <td><%= product.stock_status %></td>
              <td><%= link_to 'Show'.html_safe, "/sandthorn/product/#{product.id}", class: "btn btn-xs btn-primary" %></td>
               <td><%= link_to '<span class="glyphicon glyphicon-edit"></span> Edit'.html_safe, "/sandthorn/product/#{product.id}/edit", class: "btn btn-xs btn-success"  %></td>

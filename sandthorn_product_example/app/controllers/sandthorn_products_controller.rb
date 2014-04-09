@@ -1,6 +1,7 @@
 class SandthornProductsController < ApplicationController
 
   before_action :log
+  skip_before_filter :verify_authenticity_token
 
   def new
     #@product = SandthornProduct.new
@@ -12,8 +13,6 @@ class SandthornProductsController < ApplicationController
 
   def create
     @product = SandthornProduct.new product_params
-    ap @product.aggregate_events
-    puts @product.inspect
     if @product.save
       redirect_to "/sandthorn/product/#{@product.id}"
     else
@@ -31,12 +30,13 @@ class SandthornProductsController < ApplicationController
 
   def update
     @product = SandthornProduct.find(params[:id])
-    puts @product.inspect
+
     @product.update_name product_params[:name]
     @product.update_price product_params[:price]
     @product.update_stock_status product_params[:stock_status]
-    ap @product.aggregate_events
-    puts @product.inspect
+    
+    @product.put_on_sale if product_params[:on_sale] == "true"
+    @product.remove_from_sale if product_params[:on_sale] == "false"
     @product.save
 
     redirect_to "/sandthorn/product/#{@product.id}"
@@ -45,8 +45,6 @@ class SandthornProductsController < ApplicationController
   def destroy
     @product = SandthornProduct.find(params[:id])
     @product.destroy
-    ap @product.aggregate_events
-    puts @product.inspect
     @product.save
 
     redirect_to "/sandthorn/products/index"
@@ -54,7 +52,7 @@ class SandthornProductsController < ApplicationController
 
   private
   def product_params
-    params.require(:sandthorn_product).permit(:name, :price, :stock_status)
+    params.require(:sandthorn_product).permit(:name, :price, :stock_status, :on_sale)
   end
 
 end
