@@ -10,8 +10,6 @@ else
   url = ENV["DATABASE_URL"]
 end
 
-ap url
-
 catch_all_config = [ { driver: SandthornDriverSequel.driver_from_url(url: url) } ]
 Sandthorn.configuration = catch_all_config
 SandthornDriverSequel.migrate_db url: url

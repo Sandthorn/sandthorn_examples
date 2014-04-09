@@ -39,7 +39,7 @@
                     </label>
                     <label class="btn btn-warning <%= 'active' if @product.stock_status == 'outofstock' %>">
                     <span id="sandthorn_product_stock_status_outofstock_icon" class="<%= 'glyphicon glyphicon-ban-circle' if @product.stock_status == 'outofstock' %>"></span>
-                        <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="iu[stock_status]" type="radio" value="outofstock"> Out of stock
+                        <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="sandthorn_product[stock_status]" type="radio" value="outofstock"> Out of stock
                     </label>
                     <label class="btn btn-danger <%= 'active' if @product.stock_status == 'discontinued' %>">
                     <span id="sandthorn_product_stock_status_discontinued_icon" class="<%= 'glyphicon glyphicon-remove-circle' if @product.stock_status == 'discontinued' %>"></span>
