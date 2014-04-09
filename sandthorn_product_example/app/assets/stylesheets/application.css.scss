@@ -53,4 +53,16 @@ p {
   display: block;
   margin: -1.5em 0 100%;
 }
-
+.show {
+    position:relative;
+}
+.notify {
+            background: rgba(255,255,204,0.6);
+            padding: 10px 15px;
+            position: absolute;
+            width: 100%;
+            text-align: center;
+            left: -100%;
+            top: 50%;
+            color: #333;
+        }

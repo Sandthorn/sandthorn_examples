@@ -87,7 +87,7 @@
       		<td><%=row[:aggregate_id] %></td>
       		<td><%=row[:aggregate_version] %></td>
       		<td>:<%=row[:event_name] %></td>
-      		<td><button type="button" class="btn btn-success btn-xs show">Show event data</button><button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide event data</button><div class="event_data hidden"><%=raw humanized_event_data({timestamp: row[:timestamp].getlocal}.merge(row[:event_args]))%></div></td>
+      		<td><button type="button" class="btn btn-success btn-xs show" id="<%=row[:sequence_number] %>" >Show event data</button><button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide event data</button><div id="div_<%=row[:sequence_number] %>" class="event_data hidden"><%=raw humanized_event_data({timestamp: row[:timestamp].getlocal}.merge(row[:event_args]))%></div></td>
       	</tr>
     	<% end %>
     	</tbody>
@@ -156,12 +156,21 @@
 </div>
 <script type="text/javascript">
 	$(window).ready(function(){
-		$("table button").on("click", function(){
+		$("table button").on("click", function(e){
+			var notify = function(id) {
+				console.log("#div_"+id);
+				setTimeout(function() {
+				var n = $("<div class='notify'>Showing this event data</div>").appendTo("#div_"+id);
+				setTimeout(function() { n.remove(); }, 2500);
+				}, 250);
+			};
+			console.log(this.id);
 			show = $(this).parent().find(".hidden");
 			hide = $(this).parent().find(".show");
 			show.removeClass("hidden").addClass("show");
 			hide.removeClass("show").addClass("hidden");
+			$(this).parent().scrollintoview({ duration: "normal", complete: notify(this.id) });
 		});
-
 	});
+
 </script>
