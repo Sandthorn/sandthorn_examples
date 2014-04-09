@@ -95,10 +95,4 @@ class SandthornProductsTaskedBasedController < ApplicationController
     params.require(:sandthorn_product).permit(:name, :price, :stock_status)
   end
 
-  def log
-    log = event_store_log
-    @event_log = log[:event_log]
-    @aggregate_log = log[:aggregate_log]
-  end
-
 end
