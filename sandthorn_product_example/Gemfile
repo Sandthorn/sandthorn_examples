@@ -46,12 +46,12 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'sandthorn'
-gem 'sandthorn_driver_sequel'
-gem 'awesome_print'
+gem 'sandthorn', "~> 0.3"
+gem 'sandthorn_driver_sequel', "~> 1.1"
 
 group :development, :test do
-   gem 'sqlite3'
+	gem 'sqlite3'
+	gem 'awesome_print'
 end
 group :production do
   gem 'pg'
