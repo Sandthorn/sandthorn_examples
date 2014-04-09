@@ -2,157 +2,163 @@
 <h4>Event Sourced database</h4>
 
 <h5>Aggregates table</h5>
-<table id="event_table" class="table table-striped table-condensed">
-	<thead>
-		<tr>
-			<th>
-			aggregate_type
-			</th>
-			<th>
-			aggregate_id
-			</th>
-			<th>
-			current version
-			</th>
-		</tr>
-	</thead>
-	<tbody>
-<% @aggregate_log.each do |row| %>
-  	<tr class="success">
-  		<td><%=row["aggregate_type"] %></td>
-  		<td><%=row["aggregate_id"] %></td>
-			<td><%=row["aggregate_version"] %></td>
- 		</tr>
-<% end %>
-	</tbody>
-</table>
+<div class="table-responsive">
+    <table id="event_table" class="table table-striped table-condensed">
+    	<thead>
+    		<tr>
+    			<th>
+    			aggregate_type
+    			</th>
+    			<th>
+    			aggregate_id
+    			</th>
+    			<th>
+    			current version
+    			</th>
+    		</tr>
+    	</thead>
+    	<tbody>
+    <% @aggregate_log.each do |row| %>
+      	<tr class="info">
+      		<td><%=row["aggregate_type"] %></td>
+      		<td><%=row["aggregate_id"] %></td>
+    			<td><%=row["aggregate_version"] %></td>
+     		</tr>
+    <% end %>
+    	</tbody>
+    </table>
+</div>
 <br>
 
 <h5>Events, a bit humanized, newest first</h5>
-<table id="event_table" class="table table-striped table-condensed">
-	<thead>
-		<tr>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            sequence_number
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            aggregate_type
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            aggregate_id
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            aggregate_version
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            event_name
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            event_data
-          </div>
-        </div>
-    	</th>
-    	</tr>
-	</thead>
-	<tbody>
-	<% @event_log.reverse.each do |row| %>
-  	<tr class="success">
-  		<td><%=row[:sequence_number] %></td>
-  		<td><%=row[:aggregate_type] %></td>
-  		<td><%=row[:aggregate_id] %></td>
-  		<td><%=row[:aggregate_version] %></td>
-  		<td>:<%=row[:event_name] %></td>
-  		<td><button type="button" class="btn btn-info btn-xs btn-block show">Show event data</button><button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide event data</button><div class="event_data hidden"><%=raw humanized_event_data({timestamp: row[:timestamp].getlocal}.merge(row[:event_args]))%></div></td>
-  	</tr>
-	<% end %>
-	</tbody>
-</table>
+<div class="table-responsive">
+    <table id="event_table" class="table table-striped table-condensed">
+    	<thead>
+    		<tr>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                sequence_number
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                aggregate_type
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                aggregate_id
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                aggregate_version
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                event_name
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                event_data
+              </div>
+            </div>
+        	</th>
+        	</tr>
+    	</thead>
+    	<tbody>
+    	<% @event_log.reverse.each do |row| %>
+      	<tr class="success">
+      		<td><%=row[:sequence_number] %></td>
+      		<td><%=row[:aggregate_type] %></td>
+      		<td><%=row[:aggregate_id] %></td>
+      		<td><%=row[:aggregate_version] %></td>
+      		<td>:<%=row[:event_name] %></td>
+      		<td><button type="button" class="btn btn-success btn-xs show">Show event data</button><button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide event data</button><div class="event_data hidden"><%=raw humanized_event_data({timestamp: row[:timestamp].getlocal}.merge(row[:event_args]))%></div></td>
+      	</tr>
+    	<% end %>
+    	</tbody>
+    </table>
+</div>
 <br />
 
 <h5>Raw events table, oldest first</h5>
 <% @event_log.each do |row| %>
-  <p class="bg-success"><%= row %></p>
+  <p class="bg-warning"><%= row %></p>
 <% end %>
 
 <h5>Snapshots table</h5>
-<table class="table table-striped table-condensed">
-	<thead>
-		<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            aggregate_type
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            aggregate_id
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            snapshotted at version
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            current real version
-          </div>
-        </div>
-    	</th>
-			<th class="text-center">
-				<div class="vertical-text">
-        	<div class="vertical-text-inner">
-            yaml snapshot
-          </div>
-        </div>
-    	</th>
-	</thead>
-	<tbody>
-<% @snapshots_log.each do |row| %>
-  	<tr class="success">
-  		<td><%=row["aggregate_type"] %></td>
-  		<td><%=row["aggregate_id"] %></td>
-			<td><%=row["snapshot_version"] %></td>
-			<td><%=row["current_version"] %></td>
-			<td><button type="button" class="btn btn-info btn-xs btn-block show">Show yaml data</button><button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide yaml data</button><div class="event_data hidden"><%=row["snapshot_data"]%></div></td>
- 		</tr>
-<% end %>
-	</tbody>
-</table>
+<div class="table-responsive">
+    <table class="table table-striped table-condensed">
+    	<thead>
+    		<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                aggregate_type
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                aggregate_id
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                snapshotted at version
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                current real version
+              </div>
+            </div>
+        	</th>
+    			<th class="text-center">
+    				<div class="vertical-text">
+            	<div class="vertical-text-inner">
+                yaml snapshot
+              </div>
+            </div>
+        	</th>
+    	</thead>
+    	<tbody>
+    <% @snapshots_log.each do |row| %>
+      	<tr class="danger">
+      		<td><%=row["aggregate_type"] %></td>
+      		<td><%=row["aggregate_id"] %></td>
+    			<td><%=row["snapshot_version"] %></td>
+    			<td><%=row["current_version"] %></td>
+    			<td><button type="button" class="btn btn-danger btn-xs btn-block show">Show yaml data</button><button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide yaml data</button><div class="event_data hidden"><%=row["snapshot_data"]%></div></td>
+     		</tr>
+    <% end %>
 
+    	</tbody>
+    </table>
+</div>
 <script type="text/javascript">
 	$(window).ready(function(){
 		$("table button").on("click", function(){
-			show = $(this).parent().find(".hidden");		
-			hide = $(this).parent().find(".show");		
+			show = $(this).parent().find(".hidden");
+			hide = $(this).parent().find(".show");
 			show.removeClass("hidden").addClass("show");
 			hide.removeClass("show").addClass("hidden");
 		});
