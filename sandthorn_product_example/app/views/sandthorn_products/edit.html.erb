@@ -7,51 +7,58 @@
 
         <div class="jumbotron clearfix">
             <div class="form-group clearfix">
-                <label for="sandthorn_product_name" class="col-sm-2 ">Name</label>
-                <div class="col-sm-10">
+                <label for="sandthorn_product_name" class="col-sm-3 ">Name</label>
+                <div class="col-sm-9">
                     <input id="sandthorn_product_name" name="sandthorn_product[name]" type="text" class="form-control" placeholder="Name" value="<%= @product.name %>">
                 </div>
             </div>
             <div class="form-group clearfix">
-                <label for="sandthorn_product_price" class="col-sm-2 ">Price</label>
-                <div class="col-sm-10">
+                <label for="sandthorn_product_price" class="col-sm-3 ">Price</label>
+                <div class="col-sm-9">
                     <input id="sandthorn_product_price" name="sandthorn_product[price]" type="text" class="form-control" placeholder="Price" value="<%= @product.price %>">
                 </div>
             </div>
             <div class="form-group clearfix">
-                <label class="col-sm-2 ">On sale</label>
-                <div class="col-sm-10">
-                     
-                     <input <%= 'checked' if @product.on_sale %> id="sandthorn_product_on_sale_true" name="sandthorn_product[on_sale]" type="radio" value="true">
-                     <label for="sandthorn_product_on_sale_true">Yes</label>
-                     
-                     <input <%= 'checked' if !@product.on_sale %> id="sandthorn_product_on_sale_false" name="sandthorn_product[on_sale]" type="radio" value="false">
-                     <label for="sandthorn_product_on_sale_false">No</label>
+                <label class="col-sm-3 ">Stock Status</label>
+                <div class="col-sm-9">
+                    <div class="btn-group btn-group-sm stock-status" data-toggle="buttons">
+                        <label id="sandthorn_product_stock_status_instock_label" class="btn btn-<%= 'success active' if @product.stock_status == 'instock' %><%= 'default' if @product.stock_status != 'instock' %>">
+                        <span class="glyphicon glyphicon-ok-circle"></span>
+                            <input <%= 'checked' if @product.stock_status == 'instock' %> id="sandthorn_product_stock_status_instock" class="stock_status" name="sandthorn_product[stock_status]" type="radio" value="instock"> In stock
+                        </label>
+                        <label  id="sandthorn_product_stock_status_outofstock_label" class="btn btn-<%= 'warning active' if @product.stock_status == 'outofstock' %><%= 'default' if @product.stock_status != 'outofstock' %>">
+                        <span class="glyphicon glyphicon-ban-circle"></span>
+                            <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="iu[stock_status]" type="radio" value="outofstock"> Out of stock
+                        </label>
+                        <label id="sandthorn_product_stock_status_discontinued_label" class="btn btn-<%= 'danger active' if @product.stock_status == 'discontinued' %><%= 'default' if @product.stock_status != 'discontinued' %>">
+                        <span class="glyphicon glyphicon-remove-circle"></span>
+                            <input <%= 'checked' if @product.stock_status == 'discontinued' %> id="sandthorn_product_stock_status_discontinued" class="stock_status" name="sandthorn_product[stock_status]" type="radio" value="discontinued"> Discontinued
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group clearfix">
+                <label class="col-sm-3 ">On Sale</label>
+                <div class="col-sm-9">
+                     <div class="btn-group btn-group-sm on-sale" data-toggle="buttons">
+
+                         <label  id="sandthorn_product_on_sale_true_label" class="btn btn-<%= 'success  active' if @product.on_sale %><%= 'default' if !@product.on_sale %>" for="sandthorn_product_on_sale_true">
+                         <span class="glyphicon glyphicon-ok-circle"></span>
+                            <input <%= 'checked' if @product.on_sale %> id="sandthorn_product_on_sale_true" name="sandthorn_product[on_sale]" type="radio" value="true">Yes</label>
+
+                        <label  id="sandthorn_product_on_sale_false_label" class="btn btn-<%= 'danger  active' if !@product.on_sale %><%= 'default' if @product.on_sale %>" for="sandthorn_product_on_sale_false">
+                        <span class="glyphicon glyphicon-ban-circle"></span>
+                            <input <%= 'checked' if !@product.on_sale %> id="sandthorn_product_on_sale_false" name="sandthorn_product[on_sale]" type="radio" value="false">No</label>
+                    </div>
                 </div>
             </div>
 
-            <div class="col-sm-7">
-                <h4>Stock status</h4>
-                <div class="btn-group btn-group-sm" data-toggle="buttons">
-                    <label class="btn btn-success <%= 'active' if @product.stock_status == 'instock' %>">
-                    <span id="sandthorn_product_stock_status_instock_icon" class="<%= 'glyphicon glyphicon-ok-circle' if @product.stock_status == 'instock' %>"></span>
-                        <input <%= 'checked' if @product.stock_status == 'instock' %> id="sandthorn_product_stock_status_instock" class="stock_status" name="sandthorn_product[stock_status]" type="radio" value="instock"> In stock
-                    </label>
-                    <label class="btn btn-warning <%= 'active' if @product.stock_status == 'outofstock' %>">
-                    <span id="sandthorn_product_stock_status_outofstock_icon" class="<%= 'glyphicon glyphicon-ban-circle' if @product.stock_status == 'outofstock' %>"></span>
-                        <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="iu[stock_status]" type="radio" value="outofstock"> Out of stock
-                    </label>
-                    <label class="btn btn-danger <%= 'active' if @product.stock_status == 'discontinued' %>">
-                    <span id="sandthorn_product_stock_status_discontinued_icon" class="<%= 'glyphicon glyphicon-remove-circle' if @product.stock_status == 'discontinued' %>"></span>
-                        <input <%= 'checked' if @product.stock_status == 'discontinued' %> id="sandthorn_product_stock_status_discontinued" class="stock_status" name="sandthorn_product[stock_status]" type="radio" value="discontinued"> Discontinued
-                    </label>
-                </div>
+            <div class="col-sm-3">
             </div>
-            <div class="col-sm-5">
-                <label>Ajax update
-                <input id="tasked_based" type="checkbox"></label>
-                <input id="update_button" name="commit" type="submit" value="Update Product" class="btn btn-lg btn-block btn-success">
-                
+            <div class="col-sm-9">
+                <input id="update_button" name="commit" type="submit" value="Update Product" class="btn btn-success">
+                <label  class="btn btn-default pull-right">Ajax update
+                    <input id="tasked_based" type="checkbox"></label>
             </div>
         </div>
          </form>
@@ -81,11 +88,11 @@
           }
           else
           {
-            $("#update_button").show();   
+            $("#update_button").show();
           }
 
         });
-    
+
 
         $( "#sandthorn_product_name" ).change(function() {
           if ($("#tasked_based").is(':checked'))
@@ -108,6 +115,10 @@
         });
 
         $("#sandthorn_product_on_sale_true").change(function(){
+            $(".on-sale label").removeClass( "btn-success btn-danger" );
+            $(".on-sale label").addClass( "btn-default" );
+            $("#sandthorn_product_on_sale_true_label").addClass( "btn-success" );
+
             if ($("#tasked_based").is(':checked'))
             {
                 $.post("/sandthorn/product/<%= @product.id %>/put_on_sale", {}, function(response) {
@@ -119,6 +130,10 @@
         });
 
         $("#sandthorn_product_on_sale_false").change(function(){
+            $(".on-sale label").removeClass( "btn-success btn-danger" );
+            $(".on-sale label").addClass( "btn-default" );
+            $("#sandthorn_product_on_sale_false_label").addClass( "btn-danger" );
+
             if ($("#tasked_based").is(':checked'))
             {
                 $.post("/sandthorn/product/<%= @product.id %>/remove_from_sale", {}, function(response) {
@@ -130,36 +145,37 @@
         });
 
         $( "#sandthorn_product_stock_status_instock" ).change(function() {
+          $(".stock-status label").removeClass( "btn-success btn-warning btn-danger" );
+          $(".stock-status label").addClass( "btn-default" );
+          $("#sandthorn_product_stock_status_instock_label").addClass( "btn-success" );
+
           if ($("#tasked_based").is(':checked'))
           {
             $.post("/sandthorn/product/<%= @product.id %>/in_stock", {}, function(response) {
-                $(".glyphicon").hide();
-                $("#sandthorn_product_stock_status_instock_icon").addClass( "glyphicon glyphicon-ok-circle" );
-                $("#sandthorn_product_stock_status_instock_icon").show();
                 update_log();
             });
           }
         });
 
         $( "#sandthorn_product_stock_status_outofstock" ).change(function() {
+          $(".stock-status label").removeClass( "btn-success btn-warning btn-danger" );
+          $(".stock-status label").addClass( "btn-default" );
+          $("#sandthorn_product_stock_status_outofstock_label").addClass( "btn-warning" );
           if ($("#tasked_based").is(':checked'))
           {
             $.post("/sandthorn/product/<%= @product.id %>/out_of_stock", {}, function(response) {
-                $(".glyphicon").hide();
-                $("#sandthorn_product_stock_status_outofstock_icon").addClass( "glyphicon glyphicon-ban-circle" );
-                $("#sandthorn_product_stock_status_outofstock_icon").show();
                 update_log();
             });
           }
         });
 
         $( "#sandthorn_product_stock_status_discontinued" ).change(function() {
+            $(".stock-status label").removeClass( "btn-success btn-warning btn-danger" );
+            $(".stock-status label").addClass( "btn-default" );
+            $("#sandthorn_product_stock_status_discontinued_label").addClass( "btn-danger" );
           if ($("#tasked_based").is(':checked'))
           {
             $.post("/sandthorn/product/<%= @product.id %>/discontinue", {}, function(response) {
-                $(".glyphicon").hide();
-                $("#sandthorn_product_stock_status_discontinued_icon").addClass( "glyphicon glyphicon-remove-circle" );
-                $("#sandthorn_product_stock_status_discontinued_icon").show();
                 update_log();
             });
           }
