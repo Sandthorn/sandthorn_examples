@@ -36,3 +36,21 @@ p {
         margin:0 0 2px;
     }
 }
+.vertical-text {
+  display: inline-block;
+  overflow: hidden;
+    width: 1.5em;
+}
+.vertical-text-inner {
+  display: inline-block;
+    white-space: nowrap;
+    line-height: 1.5;
+    -webkit-transform: translate(0,100%) rotate(-90deg);
+    -webkit-transform-origin: 0 0;
+}
+.vertical-text-inner:after {
+  content: "";
+  display: block;
+  margin: -1.5em 0 100%;
+}
+
