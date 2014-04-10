@@ -37,8 +37,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.7.0)
-    dirty_hashy (0.2.1)
-      activesupport
     erubis (2.7.0)
     execjs (2.0.2)
     hike (1.2.3)
@@ -77,8 +75,7 @@ GEM
     rake (10.2.2)
     rdoc (4.1.1)
       json (~> 1.4)
-    sandthorn (0.3.0)
-      dirty_hashy
+    sandthorn (0.4.0)
     sandthorn_driver_sequel (1.1.0)
       pg
       sequel
