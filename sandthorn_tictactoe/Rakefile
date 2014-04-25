@@ -1,0 +1,24 @@
+require "bundler/gem_tasks"
+require "rspec/core/rake_task"
+
+require 'sandthorn'
+require 'sandthorn_driver_sequel'
+require 'sandthorn_tictactoe'
+
+RSpec::Core::RakeTask.new(:spec)
+
+URL = "sqlite://db/tictactoe.sqlite3"
+
+task :default => :spec
+
+task :start do
+  # setup
+  catch_all_config = [ { driver: SandthornDriverSequel.driver_from_url(url: URL) } ]
+  Sandthorn.configuration = catch_all_config
+  SandthornDriverSequel.migrate_db url: URL
+
+  # play
+  game = TicTacToe::Game.new
+  game.start
+end
+
