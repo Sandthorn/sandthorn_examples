@@ -46,7 +46,7 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'sandthorn', "~> 0.3"
+gem 'sandthorn', "~> 0.5"
 gem 'sandthorn_driver_sequel', "~> 1.1"
 
 group :development, :test do
