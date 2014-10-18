@@ -12,9 +12,11 @@ class SandthornProductsController < ApplicationController
   end
 
   def create
-    @product = SandthornProduct.new product_params
+    SandthornProduct.aggregate_trace trace_info do
+      @product = SandthornProduct.new product_params
+    end
     if @product.save
-      redirect_to "/sandthorn/product/#{@product.id}"
+        redirect_to "/sandthorn/product/#{@product.id}"
     else
       render 'new'
     end
