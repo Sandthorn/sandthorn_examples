@@ -28,7 +28,7 @@
                         </label>
                         <label  id="sandthorn_product_stock_status_outofstock_label" class="btn btn-<%= 'warning active' if @product.stock_status == 'outofstock' %><%= 'default' if @product.stock_status != 'outofstock' %>">
                         <span class="glyphicon glyphicon-ban-circle"></span>
-                            <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="iu[stock_status]" type="radio" value="outofstock"> Out of stock
+                            <input <%= 'checked' if @product.stock_status == 'outofstock' %> id="sandthorn_product_stock_status_outofstock" class="stock_status" name="sandthorn_product[stock_status]" type="radio" value="outofstock"> Out of stock
                         </label>
                         <label id="sandthorn_product_stock_status_discontinued_label" class="btn btn-<%= 'danger active' if @product.stock_status == 'discontinued' %><%= 'default' if @product.stock_status != 'discontinued' %>">
                         <span class="glyphicon glyphicon-remove-circle"></span>

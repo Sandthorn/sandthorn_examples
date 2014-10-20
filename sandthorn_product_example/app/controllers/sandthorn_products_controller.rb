@@ -12,9 +12,11 @@ class SandthornProductsController < ApplicationController
   end
 
   def create
-    @product = SandthornProduct.new product_params
+    SandthornProduct.aggregate_trace trace_info do
+      @product = SandthornProduct.new product_params
+    end
     if @product.save
-      redirect_to "/sandthorn/product/#{@product.id}"
+        redirect_to "/sandthorn/product/#{@product.id}"
     else
       render 'new'
     end
@@ -31,12 +33,18 @@ class SandthornProductsController < ApplicationController
   def update
     @product = SandthornProduct.find(params[:id])
 
-    @product.update_name product_params[:name]
-    @product.update_price product_params[:price]
-    @product.update_stock_status product_params[:stock_status]
-    
-    @product.put_on_sale if product_params[:on_sale] == "true"
-    @product.remove_from_sale if product_params[:on_sale] == "false"
+    @product.aggregate_trace trace_info do |aggregate|
+   
+      aggregate.update_name product_params[:name]
+      aggregate.update_price product_params[:price]
+      puts aggregate.stock_status
+      puts product_params[:stock_status]
+      aggregate.update_stock_status product_params[:stock_status]
+      puts aggregate.stock_status
+      aggregate.put_on_sale if product_params[:on_sale] == "true"
+      aggregate.remove_from_sale if product_params[:on_sale] == "false"
+
+    end
     @product.save
 
     redirect_to "/sandthorn/product/#{@product.id}"
@@ -53,6 +61,10 @@ class SandthornProductsController < ApplicationController
   private
   def product_params
     params.require(:sandthorn_product).permit(:name, :price, :stock_status, :on_sale)
+  end
+
+  def trace_info
+    trace_info = {ip: request.remote_ip}
   end
 
 end

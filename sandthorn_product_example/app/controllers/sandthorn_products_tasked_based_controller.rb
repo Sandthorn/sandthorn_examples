@@ -7,8 +7,11 @@ class SandthornProductsTaskedBasedController < ApplicationController
   def change_name
     product = SandthornProduct.find(params[:id])
     
-    product.update_name params[:name]
+    product.aggregate_trace trace_info do |p|
+      p.update_name params[:name]
+    end
     product.save
+    
     respond_to do |format|
       format.json {render :json => {}, status: 201 }
     end
@@ -16,7 +19,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
 
   def change_price
     product = SandthornProduct.find(params[:id])
-    product.update_price params[:price]
+    product.aggregate_trace trace_info do |p|
+      p.update_price params[:price]
+    end
     product.save
 
     respond_to do |format|
@@ -26,7 +31,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
 
   def in_stock
     product = SandthornProduct.find(params[:id])
-    product.in_stock
+    product.aggregate_trace trace_info do |p|
+      p.in_stock
+    end
     product.save
 
     respond_to do |format|
@@ -36,7 +43,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
 
   def out_of_stock
     product = SandthornProduct.find(params[:id])
-    product.out_of_stock
+    product.aggregate_trace trace_info do |p|
+      p.out_of_stock
+    end
     product.save
 
     respond_to do |format|
@@ -46,7 +55,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
 
   def discontinue
     product = SandthornProduct.find(params[:id])
-    product.discontinue
+    product.aggregate_trace trace_info do |p|
+      p.discontinue
+    end
     product.save
 
     respond_to do |format|
@@ -56,7 +67,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
 
   def destroy
     product = SandthornProduct.find(params[:id])
-    product.destroy
+    product.aggregate_trace trace_info do |p|
+      p.destroy
+    end
     product.save
 
     redirect_to "/sandthorn/products/index"
@@ -64,7 +77,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
 
   def put_on_sale
     product = SandthornProduct.find(params[:id])
-    product.put_on_sale
+    product.aggregate_trace trace_info do |p|
+      p.put_on_sale
+    end
     product.save
 
     respond_to do |format|
@@ -74,7 +89,9 @@ class SandthornProductsTaskedBasedController < ApplicationController
 
   def remove_from_sale
     product = SandthornProduct.find(params[:id])
-    product.remove_from_sale
+    product.aggregate_trace trace_info do |p|
+      p.remove_from_sale
+    end
     product.save
 
     respond_to do |format|
@@ -93,6 +110,10 @@ class SandthornProductsTaskedBasedController < ApplicationController
   private
   def product_params
     params.require(:sandthorn_product).permit(:name, :price, :stock_status)
+  end
+
+  def trace_info
+    { ip: request.remote_ip }
   end
 
 end
