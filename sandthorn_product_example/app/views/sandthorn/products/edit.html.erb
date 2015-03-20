@@ -2,8 +2,7 @@
     <div class="col-sm-12">
         <h2>Editing Sandthorn product</h2>
 
-        <form accept-charset="UTF-8" action="/sandthorn/product/<%= @product.id %>/update" method="post">
-
+        <%= form_tag(sandthorn_product_path(@product.id), method: :put) do %>
 
         <div class="jumbotron clearfix">
             <div class="form-group clearfix">
@@ -63,9 +62,11 @@
                     <input id="tasked_based" type="checkbox"></label>
             </div>
         </div>
-         </form>
+        <% end %>
 
-        <%= link_to '<span class="glyphicon glyphicon-chevron-left"></span> Back'.html_safe, "/sandthorn/product/#{@product.id}", class: "btn btn-sm btn-primary"  %>
+        <%= link_to sandthorn_product_path(@product.id), class: "btn btn-sm btn-primary"  do %>
+          <span class="glyphicon glyphicon-chevron-left"></span> Back
+        <% end %>
 
         <div id="log_events">
             <%= render 'log' %>

@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Sandthorn Product Example</title>
-  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
-<div class="container">
+  <head>
+    <title>Sandthorn Product Example</title>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body>
+    <div class="container">
       <div class="header">
         <ul class="nav nav-pills pull-right">
-        <%= nav_link 'Home', root_path %>
-        <%= nav_link 'AR Products',  {controller: "products"} %>
-        <%= nav_link 'Sandthorn Products',  {controller: "sandthorn_products"} %>
+          <%= nav_link 'Home', root_path %>
+          <%= nav_link 'AR Products', products_path %>
+          <%= nav_link 'Sandthorn Products', sandthorn_products_path %>
         </ul>
         <h3 class="text-warning"><a href="https://github.com/Sandthorn/" target="_blank">Sandthorn</a> Product Example</h3>
       </div>
@@ -21,12 +21,12 @@
 
       <div class="footer">
         <div class="row">
-            <div class="col-sm-6"><p><a href="https://github.com/Sandthorn" target="_blank"><span class="glyphicon glyphicon-user"></span> Sandthorn Event Sourcing</a></p></div>
-            <div class="col-sm-6"><p class="pull-right"><a href="mailto:info@sandthorn.org" target="_blank"><span class="glyphicon glyphicon-envelope"></span> info@sandthorn.org</a></p></div>
+          <div class="col-sm-6"><p><a href="https://github.com/Sandthorn" target="_blank"><span class="glyphicon glyphicon-user"></span> Sandthorn Event Sourcing</a></p></div>
+          <div class="col-sm-6"><p class="pull-right"><a href="mailto:info@sandthorn.org" target="_blank"><span class="glyphicon glyphicon-envelope"></span> info@sandthorn.org</a></p></div>
         </div>
 
       </div>
 
     </div> <!-- /container -->
-</body>
+  </body>
 </html>

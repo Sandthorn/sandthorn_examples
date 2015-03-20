@@ -1,32 +1,39 @@
 module ApplicationHelper
+  def nav_link(link_text, link_path)
+    class_name = current_page?(link_path) ? 'active' : nil
 
-    def nav_link(link_text, link_path)
-      class_name = current_page?(link_path) ? 'active' : nil
+    content_tag(:li, :class => class_name) do
+      link_to link_text, link_path
+    end
+  end
 
-      content_tag(:li, :class => class_name) do
-        link_to link_text, link_path
+  def humanized_event_data event_data
+    rows = event_data.each_pair.flat_map do |key, value|
+      if value.is_a?(Array) && !value.empty?
+        handle_array_attribute(key, value)
+      else
+        create_row(key, value)
       end
     end
-    def humanized_event_data event_data
-    	output = ""
-    	event_data.each_pair do |key, value|
-    		if value.is_a? Array
-    			next if value.empty?
-    			output += head_row(key)
-    			output = value.inject(output) { |o,e| o + hash_to_tr(e) }	
-    		else
-    			output += create_row key,value
-    		end
-    	end
-    	"<table class='table table-condensed'>" + output + "</table>"
+    content_tag(:table, class: ["table", "table-condensed"]) do
+      rows.join.html_safe
     end
-    def hash_to_tr hash
-    	hash.inject("") { |tail,head| tail + create_row(head[0],head[1]) }
+  end
+
+  def handle_array_attribute(key, array)
+    rows = array.flat_map { |hash| hash.each_pair.map { |k,v| create_row(k,v) }  }
+    return [head_row(key), *rows]
+  end
+
+  def create_row label, value
+    content_tag(:tr) do
+      [content_tag(:td, label), content_tag(:td, value)].join.html_safe
     end
-    def create_row label, value
-    	"<tr><td>#{label}:</td><td>#{value}</td></tr>"
+  end
+
+  def head_row label
+    content_tag(:tr, class: [:active, :center]) do
+      content_tag(:th, label, sclass: "text-center", colspan: 2)
     end
-    def head_row label
-    	"<tr class='active center'><th colspan='2' class='text-center'>#{label}</th></tr>"
-    end
+  end
 end

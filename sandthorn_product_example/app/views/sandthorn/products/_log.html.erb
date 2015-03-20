@@ -87,7 +87,13 @@
       		<td><%=row[:aggregate_id] %></td>
       		<td><%=row[:aggregate_version] %></td>
       		<td>:<%=row[:event_name] %></td>
-      		<td><button type="button" class="btn btn-success btn-xs show" id="<%=row[:sequence_number] %>" >Show event data</button><button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide event data</button><div id="div_<%=row[:sequence_number] %>" class="event_data hidden"><%=raw humanized_event_data({timestamp: row[:timestamp].getlocal}.merge(row[:event_args]))%></div></td>
+      		<td>
+            <button type="button" class="btn btn-success btn-xs show" id="<%=row[:sequence_number] %>" >Show event data</button>
+            <button type="button" class="btn btn-warning btn-xs btn-block hidden">Hide event data</button>
+            <div id="div_<%=row[:sequence_number] %>" class="event_data hidden">
+              <%= raw humanized_event_data({timestamp: row[:timestamp].getlocal}.merge(row[:event_args]))%>
+            </div>
+          </td>
       	</tr>
     	<% end %>
     	</tbody>

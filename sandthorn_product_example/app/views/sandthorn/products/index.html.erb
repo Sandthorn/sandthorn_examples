@@ -1,0 +1,39 @@
+<div class="row editing">
+  <div class="col-sm-12">
+    <h2>Listing Sandthorn products</h2>
+    <p><%= link_to 'New product', new_sandthorn_product_path, class: "btn btn-success" %></p>
+    <table class="table table-striped table-condensed">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Price</th>
+          <th>On Sale</th>
+          <th colspan="4">Stock status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @products.each do |product| %>
+          <tr>
+            <td><%= product.name %></td>
+            <td><%= product.price %></td>
+            <td><%= product.on_sale %></td>
+            <td><%= product.stock_status %></td>
+            <td><%= link_to 'Show', sandthorn_product_path(product.id), class: "btn btn-xs btn-primary" %></td>
+            <td>
+              <%= link_to edit_sandthorn_product_path(product.id), class: "btn btn-xs btn-success"  do %>
+                <span class="glyphicon glyphicon-edit"></span> Edit
+              <% end %>
+            </td>
+            <td>
+              <%= link_to sandthorn_product_path(product.id), method: :delete, confirm: 'Are you sure?', class: "btn btn-xs btn-danger" do %>
+                <span class="glyphicon glyphicon-remove-sign"></span> Destroy
+              <% end %>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+
+    <%= render 'log' %>
+  </div>
+</div>
