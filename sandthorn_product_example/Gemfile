@@ -46,8 +46,9 @@ end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
 
-gem 'sandthorn', "~> 0.5"
-gem 'sandthorn_driver_sequel', "~> 1.1"
+gem 'sandthorn', '~> 0.7'
+gem 'sandthorn_driver_sequel', "~> 2.0"
+gem 'sandthorn_sequel_projection', path: "../../sandthorn_sequel_projection"
 
 group :development, :test do
 	gem 'sqlite3'
